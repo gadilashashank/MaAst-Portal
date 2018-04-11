@@ -1,6 +1,11 @@
 from flask import *
 
 app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('index.html',template_folder='templates')
+
 @app.route('/login' , methods=['POST','GET'])
 def login():
     error = None
@@ -9,6 +14,8 @@ def login():
             error = 'Invalid creds'
         else:
             return redirect(url_for('home'))
-    return render_template('sign_in.html', error=error)
+    return render_template('sign_in.html', error=error,template_folder='templates')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
