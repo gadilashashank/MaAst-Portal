@@ -1,16 +1,18 @@
 from flask import *
+from sqlite3 import *
+import model
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('index.html',template_folder='templates')
+     return render_template('index.html',template_folder='templates')
 
 @app.route('/login' , methods=['POST','GET'])
 def login():
     error = None
     if request.method is 'POST':
-        if request.form['username'] is not 'admin' and request.form['password'] is not 'admin':
+        if request.form['username'] != 'admin' and request.form['password'] != 'admin':
             error = 'Invalid creds'
         else:
             return redirect(url_for('home'))
